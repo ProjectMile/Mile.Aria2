@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="wslay_event.c" />
+    <ClCompile Include="wslay_frame.c" />
+    <ClCompile Include="wslay_net.c" />
+    <ClCompile Include="wslay_queue.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="config.h" />
+    <ClInclude Include="wslay_event.h" />
+    <ClInclude Include="wslay_frame.h" />
+    <ClInclude Include="wslay_macro.h" />
+    <ClInclude Include="wslay_net.h" />
+    <ClInclude Include="wslay_queue.h" />
+    <ClInclude Include="Include\wslay\wslay.h">
+      <Filter>Include\wslay</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\wslay\wslayver.h">
+      <Filter>Include\wslay</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Mile.Aria2.Wslay.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Include">
+      <UniqueIdentifier>{eedb0f7c-03a1-4ef0-a38c-01510380c893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\wslay">
+      <UniqueIdentifier>{a75a99c9-0166-4133-97ae-52feaf2eec17}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
