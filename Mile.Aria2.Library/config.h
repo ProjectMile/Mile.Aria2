@@ -5,7 +5,7 @@
 /* #undef AC_APPLE_UNIVERSAL_BUILD */
 
 /* Define build-type */
-#define BUILD "x86_64-w64-mingw32"
+#define BUILD "windows-msvc"
 
 /* Define to choose default CA bundle. */
 /* #undef CA_BUNDLE */
@@ -536,7 +536,7 @@
 #define HAVE___GMPZ_POWM_SEC 1
 
 /* Define build-type */
-#define HOST "x86_64-w64-mingw32"
+#define HOST "windows-msvc"
 
 /* Define to 1 if struct kevent.udata is intptr_t */
 /* #undef KEVENT_UDATA_INTPTR_T */
@@ -595,7 +595,7 @@
 #define STDC_HEADERS 1
 
 /* Define target-type */
-#define TARGET "x86_64-w64-mingw32"
+#define TARGET "windows-msvc"
 
 /* Define to 1 if you can safely include both <sys/time.h> and <time.h>. This
    macro is obsolete. */

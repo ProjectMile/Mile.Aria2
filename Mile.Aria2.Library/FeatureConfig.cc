@@ -250,7 +250,39 @@ std::string usedLibs()
 std::string usedCompilerAndPlatform()
 {
   std::stringstream rv;
-#if defined(__clang_version__)
+#if defined(_MSC_VER)
+
+  rv << "Microsoft Visual C++ ";
+#if _MSC_VER >= 1930
+  rv << "2022 ";
+#elif _MSC_VER >= 1920
+  rv << "2019 ";
+#elif _MSC_VER >= 1910
+  rv << "2017 ";
+#elif _MSC_VER >= 1900
+  rv << "2015 ";
+#elif _MSC_VER >= 1800
+  rv << "2013 ";
+#elif _MSC_VER >= 1700
+  rv << "2012 ";
+#elif _MSC_VER >= 1600
+  rv << "2010 ";
+#elif _MSC_VER >= 1500
+  rv << "2008 ";
+#elif _MSC_VER >= 1400
+  rv << "2005 ";
+#elif _MSC_VER >= 1310
+  rv << "2003 ";
+#elif _MSC_VER >= 1300
+  rv << "2002 ";
+#elif _MSC_VER >= 1200
+  rv << "6.0 ";
+#else
+  rv << "Legacy ";
+#endif
+  rv << "(" << _MSC_VER << ")";
+
+#elif defined(__clang_version__)
 
 #  ifdef __apple_build_version__
   rv << "Apple LLVM ";
