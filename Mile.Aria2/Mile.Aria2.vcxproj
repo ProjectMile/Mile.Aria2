@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Mile.Project.Windows\Mile.Project.Platform.x86.props" />
+  <Import Project="..\Mile.Project.Windows\Mile.Project.Platform.x64.props" />
+  <Import Project="..\Mile.Project.Windows\Mile.Project.Platform.ARM64.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{696BC0B6-CA75-4955-97DE-A0A14345C55E}</ProjectGuid>
+    <RootNamespace>Mile.Aria2</RootNamespace>
+    <MileProjectType>ConsoleApplication</MileProjectType>
+    <MileProjectManifestFile>Mile.Aria2.manifest</MileProjectManifestFile>
+    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
+    <MileProjectEnableVCLTLSupport>true</MileProjectEnableVCLTLSupport>
+    <MileProjectUseProjectProperties>true</MileProjectUseProjectProperties>
+    <MileProjectCompanyName>Project Mile</MileProjectCompanyName>
+    <MileProjectFileDescription>Mile.Aria2</MileProjectFileDescription>
+    <MileProjectInternalName>Mile.Aria2</MileProjectInternalName>
+    <MileProjectLegalCopyright>© Project Mile. All rights reserved.</MileProjectLegalCopyright>
+    <MileProjectOriginalFilename>Mile.Aria2.exe</MileProjectOriginalFilename>
+    <MileProjectProductName>Mile.Aria2</MileProjectProductName>
+    <MileProjectVersion>1.0.$([System.DateTime]::Today.Subtract($([System.DateTime]::Parse('2023-03-31'))).TotalDays).0</MileProjectVersion>
+    <MileProjectVersionTag Condition="false">Alpha 1</MileProjectVersionTag>
+  </PropertyGroup>
+  <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.Default.props" />
+  <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.props" />
+  <Import Project="..\Mile.Aria2.Wslay\Mile.Aria2.Wslay.props" />
+  <Import Project="..\Mile.Aria2.Library\Mile.Aria2.Library.props" />
+  <PropertyGroup>
+    <DependenciesPlatform Condition="'$(Platform)'=='ARM'">arm</DependenciesPlatform>
+    <DependenciesPlatform Condition="'$(Platform)'=='ARM64'">arm64</DependenciesPlatform>
+    <DependenciesPlatform Condition="'$(Platform)'=='Win32'">x86</DependenciesPlatform>
+    <DependenciesPlatform Condition="'$(Platform)'=='x64'">x64</DependenciesPlatform>
+    <IncludePath>..\Mile.Aria2.Dependencies\include\$(DependenciesPlatform)\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Mile.Aria2.Dependencies\lib\$(DependenciesPlatform)\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>cares.lib;gmp.lib;gmpxx.lib;libexpatMT.lib;libssh2.lib;sqlite3.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers Condition="'$(Platform)'=='Win32'">false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Mile.Aria2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="Mile.Aria2.manifest" />
+  </ItemGroup>
+  <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.targets" />
+</Project>
