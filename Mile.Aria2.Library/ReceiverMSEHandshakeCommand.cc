@@ -50,6 +50,7 @@
 #include "BtRegistry.h"
 #include "DownloadContext.h"
 #include "array_fun.h"
+#include <iterator>
 
 namespace aria2 {
 

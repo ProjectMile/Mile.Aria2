@@ -392,7 +392,7 @@ int callGetaddrinfo(struct addrinfo** resPtr, const char* host,
 
 // Provides functionality of inet_ntop using getnameinfo.  The return
 // value is the exact value of getnameinfo returns. You can get error
-// message using gai_strerror(3).
+// message using gai_strerrorA(3).
 int inetNtop(int af, const void* src, char* dst, socklen_t size);
 
 // Provides functionality of inet_pton using getBinAddr.  If af is

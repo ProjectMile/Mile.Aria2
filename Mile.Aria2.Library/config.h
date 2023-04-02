@@ -69,7 +69,7 @@
 /* #undef HAVE_ARPA_INET_H */
 
 /* Define to 1 if you have the `asctime_r' function or macro. */
-#define HAVE_ASCTIME_R 1
+/* #undef HAVE_ASCTIME_R */
 
 /* Define to 1 if you have the `atexit' function. */
 #define HAVE_ATEXIT 1
@@ -138,10 +138,10 @@
 #define HAVE_FTRUNCATE 1
 
 /* Define to 1 if you have the `gai_strerror' function. */
-/* #undef HAVE_GAI_STRERROR */
+#define HAVE_GAI_STRERROR 1
 
 /* Define to 1 if you have the `getaddrinfo' function. */
-/* #undef HAVE_GETADDRINFO */
+#define HAVE_GETADDRINFO 1
 
 /* Define to 1 if you have the `getcwd' function. */
 #define HAVE_GETCWD 1
@@ -162,7 +162,7 @@
 /* #undef HAVE_GETTEXT */
 
 /* Define to 1 if you have the `gettimeofday' function. */
-#define HAVE_GETTIMEOFDAY 1
+/* #undef HAVE_GETTIMEOFDAY */
 
 /* Define to 1 if you have a GMP with sec functions. */
 #define HAVE_GMP_SEC 1
@@ -235,7 +235,7 @@
 #define HAVE_LOCALE_H 1
 
 /* Define to 1 if you have the `localtime_r' function or macro. */
-#define HAVE_LOCALTIME_R 1
+/* #undef HAVE_LOCALTIME_R */
 
 /* Define to 1 if you have the <malloc.h> header file. */
 #define HAVE_MALLOC_H 1
@@ -476,7 +476,7 @@
 /* #undef HAVE_UNSETENV */
 
 /* Define to 1 if you have the `usleep' function. */
-#define HAVE_USLEEP 1
+/* #undef HAVE_USLEEP */
 
 /* Define to 1 if you have the `utime' function. */
 #define HAVE_UTIME 1

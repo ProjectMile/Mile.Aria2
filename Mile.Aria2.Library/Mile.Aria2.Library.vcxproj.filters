@@ -514,8 +514,6 @@
     <ClInclude Include="XORCloser.h" />
     <ClInclude Include="ZeroBtMessage.h" />
     <ClInclude Include="daemon.h" />
-    <ClInclude Include="gai_strerror.h" />
-    <ClInclude Include="getaddrinfo.h" />
     <ClInclude Include="gettimeofday.h" />
     <ClInclude Include="strptime.h" />
   </ItemGroup>
@@ -919,8 +917,6 @@
     <ClCompile Include="ZeroBtMessage.cc" />
     <ClCompile Include="daemon.cc" />
     <ClCompile Include="main.cc" />
-    <ClCompile Include="gai_strerror.c" />
-    <ClCompile Include="getaddrinfo.c" />
     <ClCompile Include="gettimeofday.c" />
     <ClCompile Include="strptime.c" />
   </ItemGroup>

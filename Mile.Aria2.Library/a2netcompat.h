@@ -45,11 +45,14 @@
 
 #ifdef __MINGW32__
 #  define a2_sockopt_t char*
+// Windows SDK have `getaddrinfo' and `gai_strerror' functions.
+#ifndef _MSC_VER
 #  ifndef HAVE_GETADDRINFO
 #    define HAVE_GETADDRINFO
 #  endif // !HAVE_GETADDRINFO
 #  undef HAVE_GAI_STRERROR
 #  undef gai_strerror
+#endif // !_MSC_VER
 #else
 #  define a2_sockopt_t void*
 #endif // __MINGW32__

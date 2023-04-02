@@ -306,10 +306,20 @@ std::string getOperatingSystemInfo()
   std::stringstream rv;
   rv << "Windows ";
   OSVERSIONINFOEX ovi = {sizeof(OSVERSIONINFOEX)};
+#if _MSC_VER >= 1200
+  // Disable compilation warnings.
+#pragma warning(push)
+#pragma warning(disable:4996)
+#endif
   if (!GetVersionEx((LPOSVERSIONINFO)&ovi)) {
     rv << "Unknown";
     return rv.str();
   }
+#if _MSC_VER >= 1200
+  // Restore compilation warnings.
+#pragma warning(pop)
+#endif
+
   if (ovi.dwMajorVersion < 6) {
     rv << "Legacy, probably XP";
     return rv.str();

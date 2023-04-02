@@ -268,7 +268,7 @@ static sock_t bindTo(const char* host, uint16_t port, int family, int sockType,
   int s = callGetaddrinfo(&res, host, util::uitos(port).c_str(), family,
                           sockType, getaddrinfoFlags, 0);
   if (s) {
-    error = gai_strerror(s);
+    error = gai_strerrorA(s);
     return -1;
   }
   std::unique_ptr<addrinfo, decltype(&freeaddrinfo)> resDeleter(res,
@@ -324,7 +324,7 @@ void SocketCore::bind(const char* addr, uint16_t port, int family, int flags)
       auto s = getnameinfo(&a.su.sa, a.suLength, host.data(), NI_MAXHOST,
                            nullptr, 0, NI_NUMERICHOST);
       if (s) {
-        error = gai_strerror(s);
+        error = gai_strerrorA(s);
         continue;
       }
       if (addrp && strcmp(host.data(), addrp) != 0) {
@@ -434,7 +434,7 @@ void SocketCore::establishConnection(const std::string& host, uint16_t port,
   s = callGetaddrinfo(&res, host.c_str(), util::uitos(port).c_str(),
                       protocolFamily_, sockType_, 0, 0);
   if (s) {
-    throw DL_ABORT_EX(fmt(EX_RESOLVE_HOSTNAME, host.c_str(), gai_strerror(s)));
+    throw DL_ABORT_EX(fmt(EX_RESOLVE_HOSTNAME, host.c_str(), gai_strerrorA(s)));
   }
   std::unique_ptr<addrinfo, decltype(&freeaddrinfo)> resDeleter(res,
                                                                 freeaddrinfo);
@@ -1196,7 +1196,7 @@ ssize_t SocketCore::writeData(const void* data, size_t len,
   s = callGetaddrinfo(&res, host.c_str(), util::uitos(port).c_str(),
                       protocolFamily_, sockType_, 0, 0);
   if (s) {
-    throw DL_ABORT_EX(fmt(EX_SOCKET_SEND, gai_strerror(s)));
+    throw DL_ABORT_EX(fmt(EX_SOCKET_SEND, gai_strerrorA(s)));
   }
   std::unique_ptr<addrinfo, decltype(&freeaddrinfo)> resDeleter(res,
                                                                 freeaddrinfo);
@@ -1401,7 +1401,7 @@ std::vector<SockAddr> SocketCore::getInterfaceAddress(const std::string& iface,
     s = callGetaddrinfo(&res, iface.c_str(), nullptr, family, SOCK_STREAM,
                         aiFlags, 0);
     if (s) {
-      A2_LOG_INFO(fmt(MSG_INTERFACE_NOT_FOUND, iface.c_str(), gai_strerror(s)));
+      A2_LOG_INFO(fmt(MSG_INTERFACE_NOT_FOUND, iface.c_str(), gai_strerrorA(s)));
     }
     else {
       std::unique_ptr<addrinfo, decltype(&freeaddrinfo)> resDeleter(

@@ -37,7 +37,10 @@
 #define _D_GETTIMEOFDAY_H 1
 
 #ifdef __MINGW32__
-#  undef SIZE_MAX
+// MSVC needs SIZE_MAX.
+#ifndef _MSC_VER
+#undef SIZE_MAX
+#endif // !_MSC_VER
 #endif // __MINGW32__
 
 #ifdef HAVE_CONFIG_H
@@ -52,8 +55,7 @@ extern "C" {
 
 #ifndef HAVE_GETTIMEOFDAY
 
-int __cdecl gettimeofday(struct timeval* __restrict__ tp,
-                         void* __restrict__ tzp __attribute__((unused)));
+int __cdecl gettimeofday(struct timeval* tp, void* tzp);
 
 #endif // HAVE_GETTIMEOFDAY
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\Mile.Project.Windows\Mile.Project.Platform.x86.props" />
   <Import Project="..\Mile.Project.Windows\Mile.Project.Platform.x64.props" />
@@ -22,8 +22,30 @@
   </PropertyGroup>
   <Import Project="..\Mile.Aria2.Wslay\Mile.Aria2.Wslay.props" />
   <PropertyGroup>
+    <IncludePath>$(MSBuildThisFileDirectory)..\Mile.Aria2.Unistd\;$(MSBuildThisFileDirectory);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <Target Name="MileAria2UnistdLibraryBuildSource" BeforeTargets="BeforeClCompile">
+    <ItemGroup>
+      <ClCompile Include="$(MSBuildThisFileDirectory)..\Mile.Aria2.Unistd\getopt.cpp" />  
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
     <IncludePath>$(MSBuildThisFileDirectory)Include\;$(MSBuildThisFileDirectory);$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NONSTDC_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__MINGW32__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ssize_t=intptr_t;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>tzname=_tzname;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="Mile.Aria2.Library.props" />
   </ItemGroup>
@@ -274,10 +296,8 @@
     <ClInclude Include="FtpTunnelRequestCommand.h" />
     <ClInclude Include="FtpTunnelRequestConnectChain.h" />
     <ClInclude Include="FtpTunnelResponseCommand.h" />
-    <ClInclude Include="gai_strerror.h" />
     <ClInclude Include="GenericParser.h" />
     <ClInclude Include="GeomStreamPieceSelector.h" />
-    <ClInclude Include="getaddrinfo.h" />
     <ClInclude Include="gettimeofday.h" />
     <ClInclude Include="GroupId.h" />
     <ClInclude Include="GrowSegment.h" />
@@ -725,9 +745,7 @@
     <ClCompile Include="FtpNegotiationCommand.cc" />
     <ClCompile Include="FtpTunnelRequestCommand.cc" />
     <ClCompile Include="FtpTunnelResponseCommand.cc" />
-    <ClCompile Include="gai_strerror.c" />
     <ClCompile Include="GeomStreamPieceSelector.cc" />
-    <ClCompile Include="getaddrinfo.c" />
     <ClCompile Include="gettimeofday.c" />
     <ClCompile Include="GroupId.cc" />
     <ClCompile Include="GrowSegment.cc" />

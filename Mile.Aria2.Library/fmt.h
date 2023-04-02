@@ -43,11 +43,13 @@
 namespace aria2 {
 
 std::string fmt(const char* fmt, ...)
-#ifdef __MINGW32__
+#ifdef _MSC_VER
+    // Don't use attribute for MSVC.
+#elif __MINGW32__
     __attribute__((format(__MINGW_PRINTF_FORMAT, 1, 2)))
-#else  // !__MINGW32__
+#else
     __attribute__((format(printf, 1, 2)))
-#endif // !__MINGW32__
+#endif
     ;
 
 } // namespace aria2

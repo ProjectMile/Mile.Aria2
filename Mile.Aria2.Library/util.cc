@@ -2003,7 +2003,7 @@ Endpoint getNumericNameInfo(const struct sockaddr* sockaddr, socklen_t len)
                       NI_NUMERICHOST | NI_NUMERICSERV);
   if (s != 0) {
     throw DL_ABORT_EX(
-        fmt("Failed to get hostname and port. cause: %s", gai_strerror(s)));
+        fmt("Failed to get hostname and port. cause: %s", gai_strerrorA(s)));
   }
   return {host, sockaddr->sa_family,
           static_cast<uint16_t>(strtoul(service, nullptr, 10))};
@@ -2487,11 +2487,11 @@ TLSVersion toTLSVersion(const std::string& ver)
 std::string formatLastError(int errNum)
 {
   std::array<char, 4_k> buf;
-  if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+  if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
                     nullptr, errNum,
                     // Default language
                     MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
-                    static_cast<LPTSTR>(buf.data()), buf.size(),
+                    static_cast<LPSTR>(buf.data()), buf.size(),
                     nullptr) == 0) {
     return "";
   }

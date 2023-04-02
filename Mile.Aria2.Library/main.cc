@@ -82,7 +82,7 @@ error_code::Value main(int argc, char** argv)
 
 } // namespace aria2
 
-int main(int argc, char** argv)
+extern "C" int aria2_main(int argc, char** argv)
 {
   aria2::error_code::Value r;
   aria2::global::initConsole(false);

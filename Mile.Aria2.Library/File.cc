@@ -95,7 +95,7 @@ bool File::isFile()
   if (fillStat(fstat) < 0) {
     return false;
   }
-  return S_ISREG(fstat.st_mode) == 1;
+  return S_ISREG(fstat.st_mode);
 }
 
 bool File::isDir()
@@ -104,7 +104,7 @@ bool File::isDir()
   if (fillStat(fstat) < 0) {
     return false;
   }
-  return S_ISDIR(fstat.st_mode) == 1;
+  return S_ISDIR(fstat.st_mode);
 }
 
 bool File::remove()

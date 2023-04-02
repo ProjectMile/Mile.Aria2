@@ -99,7 +99,11 @@ static int match_string(const char** buf, const char** strs)
   for (i = 0; strs[i] != NULL; ++i) {
     int len = strlen(strs[i]);
 
+#ifdef _MSC_VER
+    if(_strnicmp(*buf, strs[i], len) == 0) {
+#else
     if (strncasecmp(*buf, strs[i], len) == 0) {
+#endif // _MSC_VER
       *buf += len;
       return i;
     }

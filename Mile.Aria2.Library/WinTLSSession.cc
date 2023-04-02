@@ -196,7 +196,7 @@ int WinTLSSession::closeConnection()
       SEC_CHAR* host = hostname_.empty()
                            ? nullptr
                            : const_cast<SEC_CHAR*>(hostname_.c_str());
-      status_ = ::InitializeSecurityContext(cred_, &handle_, host, kReqFlags, 0,
+      status_ = ::InitializeSecurityContextW(cred_, &handle_, const_cast<SEC_WCHAR*>(utf8ToWChar(host).c_str()), kReqFlags, 0,
                                             0, nullptr, 0, &handle_, &desc,
                                             &flags, nullptr);
     }
@@ -606,7 +606,7 @@ restart:
     TLSBufferDesc desc(&buf, 1);
     SEC_CHAR* host =
         hostname_.empty() ? nullptr : const_cast<SEC_CHAR*>(hostname_.c_str());
-    status_ = ::InitializeSecurityContext(cred_, nullptr, host, kReqFlags, 0, 0,
+    status_ = ::InitializeSecurityContextW(cred_, nullptr, const_cast<SEC_WCHAR*>(utf8ToWChar(host).c_str()), kReqFlags, 0, 0,
                                           nullptr, 0, &handle_, &desc, &flags,
                                           nullptr);
     if (status_ != SEC_I_CONTINUE_NEEDED) {
@@ -716,7 +716,7 @@ restart:
       SEC_CHAR* host = hostname_.empty()
                            ? nullptr
                            : const_cast<SEC_CHAR*>(hostname_.c_str());
-      status_ = ::InitializeSecurityContext(cred_, &handle_, host, kReqFlags, 0,
+      status_ = ::InitializeSecurityContextW(cred_, &handle_, const_cast<SEC_WCHAR*>(utf8ToWChar(host).c_str()), kReqFlags, 0,
                                             0, &indesc, 0, nullptr, &outdesc,
                                             &flags, nullptr);
     }
