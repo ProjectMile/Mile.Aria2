@@ -16,14 +16,7 @@
 
 extern "C" int aria2_main(int argc, char** argv);
 
-#include <array>
-
 int main(int argc, char** argv)
 {
-    //std::array<unsigned char, 16384> buf_;
-
-    //auto x = std::end(buf_)._Unwrapped();
-
-
     return aria2_main(argc, argv);
 }
