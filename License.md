@@ -7,9 +7,11 @@ The source code of Mile.Aria2 (not including the source code from third-party
 libraries, aria2 or other aria2 derivatives) is distributed under the MIT 
 License.
 
-The source code from third-party libraries, aria2 or other aria2 derivatives
-is distributed under as same as the aria2, the default configuration of aria2
-compilation in Mile.Aria2 is the GPL Version 2.
+The source code from aria2 or other aria2 derivatives (these contents are only 
+in the `Mile.Aria2.Library` folder) is distributed under the GPLv2 License.
+
+The source code from the third-party libraries is distributed under the original
+license used in the third-party libraries.
 
 This permission notice shall be included in all copies or substantial portions
 of the Software.
@@ -401,3 +403,15 @@ consider it more useful to permit linking proprietary applications with the
 library.  If this is what you want to do, use the GNU Library General
 Public License instead of this License.
 ```
+
+### The third-party libraries used in Mile.Aria2
+
+- c-ares, https://github.com/c-ares/c-ares
+- gmp, https://gmplib.org/
+- libexpat, https://github.com/libexpat/libexpat
+- libssh2, https://github.com/libssh2/libssh2
+- Mile.Project.Windows, https://github.com/ProjectMile/Mile.Project.Windows
+- SQLite, https://github.com/sqlite/sqlite
+- VC-LTL, https://github.com/Chuyu-Team/VC-LTL5
+- Wslay, https://github.com/tatsuhiro-t/wslay
+- zlib, https://github.com/madler/zlib
