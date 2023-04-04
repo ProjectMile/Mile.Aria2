@@ -18,4 +18,5 @@ Customized version of aria2, specialize for MSVC toolchain.
 
 - [Build the original Aria2](Documents/BuildOriginalAria2.md)
 - [License](License.md)
+- [Release Notes](ReleaseNotes.md)
 - [Versioning](Documents/Versioning.md)
