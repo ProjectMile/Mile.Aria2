@@ -79,7 +79,7 @@
 #  include "MetalinkEntry.h"
 #endif // ENABLE_METALINK
 
-extern const char* optarg;
+extern char* optarg;
 extern int optind, opterr, optopt;
 
 namespace aria2 {

@@ -224,7 +224,7 @@ void OptionParser::parseArg(std::ostream& out,
     if (optarg) {
       out << optarg;
       if (op->getEraseAfterParse()) {
-        for (char* p = const_cast<char*>(optarg); *p != '\0'; ++p) {
+        for (char* p = optarg; *p != '\0'; ++p) {
           *p = '*';
         }
       }
