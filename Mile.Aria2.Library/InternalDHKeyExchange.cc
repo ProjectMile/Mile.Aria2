@@ -68,10 +68,16 @@ void DHKeyExchange::init(const unsigned char* prime, size_t primeBits,
   generator_ = n(gen.c_str(), gen.length());
 
   size_t pbytes = (privateKeyBits + 7) / 8;
+#ifdef _MSC_VER
+  unsigned char* buf = reinterpret_cast<unsigned char*>(std::malloc(pbytes));
+#else
   unsigned char buf[pbytes];
+#endif // _MSC_VER  
   util::generateRandomData(buf, pbytes);
   privateKey_ = n(reinterpret_cast<char*>(buf), pbytes);
-
+#ifdef _MSC_VER
+  std::free(buf);
+#endif // _MSC_VER
   keyLength_ = (primeBits + 7) / 8;
 }
 
