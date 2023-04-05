@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project 
-  DefaultTargets="Restore;Build"
+  DefaultTargets="Restore;Build;Packaging"
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="Restore">
     <ItemGroup>
@@ -44,5 +44,12 @@
       BuildInParallel="True"
       StopOnFirstFailure="True"
       Properties="PreferredToolArchitecture=x64" />
+  </Target>
+  <Target Name="Packaging">
+    <MSBuild
+      Projects="$(MSBuildThisFileDirectory)Mile.Project.Windows\Mile.Project.NuGetPackaging.proj"
+      Targets="Restore;Build"
+      StopOnFirstFailure="True"
+      Properties="PreferredToolArchitecture=x64;NuspecFile=$(MSBuildThisFileDirectory)Mile.Aria2\Mile.Aria2.nuspec" />
   </Target>
 </Project>

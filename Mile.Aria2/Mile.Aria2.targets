@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  PROJECT:   Mouri Internal Library Essentials
+  FILE:      Mile.Aria2.targets
+  PURPOSE:   MSBuild targets file for Mile.Aria2
+
+  LICENSE:   The MIT License
+
+  DEVELOPER: Mouri_Naruto (Mouri_Naruto AT Outlook.com)
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MileAria2RedistPath>$(MSBuildThisFileDirectory)Redist\$(PlatformTarget)\</MileAria2RedistPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ReferenceCopyLocalPaths Include="$(MileAria2RedistPath)*.*" />
+  </ItemGroup>
+</Project>

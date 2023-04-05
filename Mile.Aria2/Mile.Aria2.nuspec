@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  PROJECT:   Mouri Internal Library Essentials
+  FILE:      Mile.Aria2.nuspec
+  PURPOSE:   NuGet package definition for Mile.Aria2
+
+  LICENSE:   The MIT License
+
+  DEVELOPER: Mouri_Naruto (Mouri_Naruto AT Outlook.com)
+-->
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Mile.Aria2</id>
+    <version>1.0.6.0</version>
+    <description>Customized version of aria2, specialize for MSVC toolchain</description>
+    <authors>Kenji Mouri</authors>
+    <projectUrl>https://github.com/ProjectMile/Mile.Aria2</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">build\native\License.md</license>
+    <readme>build\native\ReadMe.md</readme>
+    <repository type="git" url="https://github.com/ProjectMile/Mile.Aria2.git" />
+  </metadata>
+  <files>
+
+    <file src="..\Output\Binaries\Release\Win32\Mile.Aria2.exe" target="build\native\Redist\x86"/>
+    <file src="..\Output\Binaries\Release\Win32\Mile.Aria2.pdb" target="build\native\Redist\x86"/>
+
+    <file src="..\Output\Binaries\Release\x64\Mile.Aria2.exe" target="build\native\Redist\x64"/>
+    <file src="..\Output\Binaries\Release\x64\Mile.Aria2.pdb" target="build\native\Redist\x64"/>
+
+    <file src="..\Output\Binaries\Release\ARM64\Mile.Aria2.exe" target="build\native\Redist\ARM64"/>
+    <file src="..\Output\Binaries\Release\ARM64\Mile.Aria2.pdb" target="build\native\Redist\ARM64"/>
+
+    <file src="Mile.Aria2.targets" target="build\native"/>
+
+    <file src="..\ReadMe.md" target="build\native"/>
+    <file src="..\License.md" target="build\native"/>
+    <file src="..\ReleaseNotes.md" target="build\native"/>
+
+  </files>
+</package>
