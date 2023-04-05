@@ -208,7 +208,7 @@
 /* #undef HAVE_LIBGCRYPT */
 
 /* Define to 1 if you have libgmp. */
-#define HAVE_LIBGMP 1
+/* #undef HAVE_LIBGMP */
 
 /* Define to 1 if you have libgnutls. */
 /* #undef HAVE_LIBGNUTLS */
@@ -614,7 +614,7 @@
 #define USE_INTERNAL_ARC4 1
 
 /* Define to 1 if internal BIGNUM support is enabled. */
-/* #undef USE_INTERNAL_BIGNUM */
+#define USE_INTERNAL_BIGNUM 1
 
 /* What message digest implementation to use */
 #define USE_INTERNAL_MD 1

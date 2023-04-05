@@ -17,7 +17,6 @@
     </ClInclude>
     <ClInclude Include="a2algo.h" />
     <ClInclude Include="a2functional.h" />
-    <ClInclude Include="a2gmp.h" />
     <ClInclude Include="a2io.h" />
     <ClInclude Include="a2iterator.h" />
     <ClInclude Include="a2netcompat.h" />
@@ -308,7 +307,6 @@
     <ClInclude Include="JsonParser.h" />
     <ClInclude Include="KeepRunningCommand.h" />
     <ClInclude Include="libgen.h" />
-    <ClInclude Include="LibgmpDHKeyExchange.h" />
     <ClInclude Include="localtime_r.h" />
     <ClInclude Include="Lock.h" />
     <ClInclude Include="LogFactory.h" />
@@ -516,9 +514,10 @@
     <ClInclude Include="daemon.h" />
     <ClInclude Include="gettimeofday.h" />
     <ClInclude Include="strptime.h" />
+    <ClInclude Include="bignum.h" />
+    <ClInclude Include="InternalDHKeyExchange.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="a2gmp.cc" />
     <ClCompile Include="A2STR.cc" />
     <ClCompile Include="AbstractAuthResolver.cc" />
     <ClCompile Include="AbstractBtMessage.cc" />
@@ -750,7 +749,6 @@
     <ClCompile Include="JsonParser.cc" />
     <ClCompile Include="KeepRunningCommand.cc" />
     <ClCompile Include="libgen.c" />
-    <ClCompile Include="LibgmpDHKeyExchange.cc" />
     <ClCompile Include="localtime_r.c" />
     <ClCompile Include="LogFactory.cc" />
     <ClCompile Include="Logger.cc" />
@@ -919,5 +917,6 @@
     <ClCompile Include="main.cc" />
     <ClCompile Include="gettimeofday.c" />
     <ClCompile Include="strptime.c" />
+    <ClCompile Include="InternalDHKeyExchange.cc" />
   </ItemGroup>
 </Project>

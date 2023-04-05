@@ -2,7 +2,7 @@
 /*
  * aria2 - The high speed download utility
  *
- * Copyright (C) 2011 Tatsuhiro Tsujikawa
+ * Copyright (C) 2013 Nils Maier
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,62 +32,52 @@
  * files in the program, then also delete it here.
  */
 /* copyright --> */
-#include "LibgmpDHKeyExchange.h"
+
+#include "InternalDHKeyExchange.h"
 
 #include <cstring>
 
 #include "DlAbortEx.h"
+#include "LogFactory.h"
 #include "fmt.h"
-#include "a2gmp.h"
 #include "util.h"
 
 namespace aria2 {
 
-namespace {
-void handleError(int err)
-{
-  throw DL_ABORT_EX(
-      fmt("Exception in libgmp routine(DHKeyExchange class): code%d", err));
-}
-} // namespace
-
-DHKeyExchange::DHKeyExchange() : keyLength_(0)
-{
-  mpz_init(prime_);
-  mpz_init(generator_);
-  mpz_init(privateKey_);
-  mpz_init(publicKey_);
-}
-
-DHKeyExchange::~DHKeyExchange()
-{
-  mpz_clear(prime_);
-  mpz_clear(generator_);
-  mpz_clear(privateKey_);
-  mpz_clear(publicKey_);
-}
-
 void DHKeyExchange::init(const unsigned char* prime, size_t primeBits,
                          const unsigned char* generator, size_t privateKeyBits)
 {
-  if (mpz_set_str(prime_, reinterpret_cast<const char*>(prime), 16) == -1) {
-    handleError(-1);
+  std::string pr = reinterpret_cast<const char*>(prime);
+  if (pr.length() % 2) {
+    pr = "0" + pr;
   }
-  if (mpz_set_str(generator_, reinterpret_cast<const char*>(generator), 16) ==
-      -1) {
-    handleError(-1);
+  pr = util::fromHex(pr.begin(), pr.end());
+  if (pr.empty()) {
+    throw DL_ABORT_EX("No valid prime supplied");
   }
-  mpz_urandomb(privateKey_, global::gmpRandstate, privateKeyBits);
+  prime_ = n(pr.c_str(), pr.length());
+
+  std::string gen = reinterpret_cast<const char*>(generator);
+  if (gen.length() % 2) {
+    gen = "0" + gen;
+  }
+  gen = util::fromHex(gen.begin(), gen.end());
+  if (gen.empty()) {
+    throw DL_ABORT_EX("No valid generator supplied");
+  }
+  generator_ = n(gen.c_str(), gen.length());
+
+  size_t pbytes = (privateKeyBits + 7) / 8;
+  unsigned char buf[pbytes];
+  util::generateRandomData(buf, pbytes);
+  privateKey_ = n(reinterpret_cast<char*>(buf), pbytes);
+
   keyLength_ = (primeBits + 7) / 8;
 }
 
 void DHKeyExchange::generatePublicKey()
 {
-#if HAVE_GMP_SEC
-  mpz_powm_sec(publicKey_, generator_, privateKey_, prime_);
-#else  // HAVE_GMP_SEC
-  mpz_powm(publicKey_, generator_, privateKey_, prime_);
-#endif // HAVE_GMP_SEC
+  publicKey_ = generator_.mul_mod(privateKey_, prime_);
 }
 
 size_t DHKeyExchange::getPublicKey(unsigned char* out, size_t outLength) const
@@ -98,12 +88,8 @@ size_t DHKeyExchange::getPublicKey(unsigned char* out, size_t outLength) const
             static_cast<unsigned long>(keyLength_),
             static_cast<unsigned long>(outLength)));
   }
-  memset(out, 0, outLength);
-  size_t publicKeyBytes = (mpz_sizeinbase(publicKey_, 2) + 7) / 8;
-  size_t offset = keyLength_ - publicKeyBytes;
-  size_t nwritten;
-  mpz_export(out + offset, &nwritten, 1, 1, 1, 0, publicKey_);
-  return nwritten;
+  publicKey_.binary(reinterpret_cast<char*>(out), outLength);
+  return keyLength_;
 }
 
 void DHKeyExchange::generateNonce(unsigned char* out, size_t outLength) const
@@ -121,27 +107,19 @@ size_t DHKeyExchange::computeSecret(unsigned char* out, size_t outLength,
             static_cast<unsigned long>(keyLength_),
             static_cast<unsigned long>(outLength)));
   }
-  mpz_t peerPublicKey;
-  mpz_init(peerPublicKey);
-  mpz_import(peerPublicKey, peerPublicKeyLength, 1, 1, 1, 0, peerPublicKeyData);
-  mpz_t secret;
-  mpz_init(secret);
+  if (prime_.length() < peerPublicKeyLength) {
+    throw DL_ABORT_EX(
+        fmt("peer public key overflows bignum. max:%lu, actual:%lu",
+            static_cast<unsigned long>(prime_.length()),
+            static_cast<unsigned long>(peerPublicKeyLength)));
+  }
 
-#if HAVE_GMP_SEC
-  mpz_powm_sec(secret, peerPublicKey, privateKey_, prime_);
-#else  // HAVE_GMP_SEC
-  mpz_powm(secret, peerPublicKey, privateKey_, prime_);
-#endif // HAVE_GMP_SEC
+  n peerKey(reinterpret_cast<const char*>(peerPublicKeyData),
+            peerPublicKeyLength);
+  n secret = peerKey.mul_mod(privateKey_, prime_);
+  secret.binary(reinterpret_cast<char*>(out), outLength);
 
-  mpz_clear(peerPublicKey);
-
-  memset(out, 0, outLength);
-  size_t secretBytes = (mpz_sizeinbase(secret, 2) + 7) / 8;
-  size_t offset = keyLength_ - secretBytes;
-  size_t nwritten;
-  mpz_export(out + offset, &nwritten, 1, 1, 1, 0, secret);
-  mpz_clear(secret);
-  return nwritten;
+  return outLength;
 }
 
 } // namespace aria2

@@ -2,7 +2,7 @@
 /*
  * aria2 - The high speed download utility
  *
- * Copyright (C) 2011 Tatsuhiro Tsujikawa
+ * Copyright (C) 2013 Nils Maier
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,16 +32,41 @@
  * files in the program, then also delete it here.
  */
 /* copyright --> */
-#include "a2gmp.h"
+
+#ifndef D_INTERNAL_DH_KEY_EXCHANGE_H
+#define D_INTERNAL_DH_KEY_EXCHANGE_H
+
+#include "common.h"
+#include "bignum.h"
 
 namespace aria2 {
 
-namespace global {
+class DHKeyExchange {
+private:
+  typedef bignum::ulong<1024> n; // aka max. 8096 bits
+  size_t keyLength_;
+  n prime_;
+  n generator_;
+  n privateKey_;
+  n publicKey_;
 
-gmp_randstate_t gmpRandstate;
+public:
+  DHKeyExchange() : keyLength_(0) {}
 
-void initGmp() { gmp_randinit_default(gmpRandstate); }
+  void init(const unsigned char* prime, size_t primeBits,
+            const unsigned char* generator, size_t privateKeyBits);
 
-} // namespace global
+  void generatePublicKey();
+
+  size_t getPublicKey(unsigned char* out, size_t outLength) const;
+
+  void generateNonce(unsigned char* out, size_t outLength) const;
+
+  size_t computeSecret(unsigned char* out, size_t outLength,
+                       const unsigned char* peerPublicKeyData,
+                       size_t peerPublicKeyLength) const;
+};
 
 } // namespace aria2
+
+#endif // D_INTERNAL_DH_KEY_EXCHANGE_H
