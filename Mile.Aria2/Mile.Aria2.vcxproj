@@ -29,12 +29,12 @@
     <DependenciesPlatform Condition="'$(Platform)'=='ARM64'">arm64</DependenciesPlatform>
     <DependenciesPlatform Condition="'$(Platform)'=='Win32'">x86</DependenciesPlatform>
     <DependenciesPlatform Condition="'$(Platform)'=='x64'">x64</DependenciesPlatform>
-    <IncludePath>..\Mile.Aria2.Dependencies\include\$(DependenciesPlatform)\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Mile.Aria2.Dependencies\lib\$(DependenciesPlatform)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Mile.Aria2.Dependencies\Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Mile.Aria2.Dependencies\Lib\$(DependenciesPlatform)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>cares.lib;gmp.lib;gmpxx.lib;libexpatMT.lib;libssh2.lib;sqlite3.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cares.lib;libexpatMT.lib;libssh2.lib;sqlite3.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers Condition="'$(Platform)'=='Win32'">false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
