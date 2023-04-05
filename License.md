@@ -407,10 +407,10 @@ Public License instead of this License.
 ### The third-party libraries used in Mile.Aria2
 
 - c-ares, https://github.com/c-ares/c-ares
-- gmp, https://gmplib.org/
 - libexpat, https://github.com/libexpat/libexpat
 - libssh2, https://github.com/libssh2/libssh2
 - Mile.Project.Windows, https://github.com/ProjectMile/Mile.Project.Windows
+- mingw-w64, https://github.com/mingw-w64/mingw-w64
 - SQLite, https://github.com/sqlite/sqlite
 - VC-LTL, https://github.com/Chuyu-Team/VC-LTL5
 - Wslay, https://github.com/tatsuhiro-t/wslay
