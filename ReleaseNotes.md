@@ -1,5 +1,12 @@
 ﻿# Mile.Aria2 Release Notes
 
+**Mile.Aria2 1.0 (1.0.6.0)**
+
+- Remove the GMP dependency.
+- Update third-party dependencies.
+- Update the manifest definition.
+- Add NuGet packaging support.
+
 **Mile.Aria2 1.0 (1.0.5.0)**
 
 - Remove the CommandLineToArgvW API dependency. (Suggested by Bas Timmer and
