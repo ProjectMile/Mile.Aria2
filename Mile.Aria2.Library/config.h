@@ -508,6 +508,9 @@
 /* Define to 1 if you have the <winsock2.h> header file. */
 #define HAVE_WINSOCK2_H 1
 
+/* Define to 1 if you have Windows TLS */
+#define HAVE_WINTLS 1
+
 /* Define to 1 if `fork' works. */
 /* #undef HAVE_WORKING_FORK */
 

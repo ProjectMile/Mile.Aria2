@@ -1,4 +1,4 @@
-﻿/* <!-- copyright */
+/* <!-- copyright */
 /*
  * aria2 - The high speed download utility
  *
@@ -332,86 +332,118 @@ std::string usedCompilerAndPlatform()
   return rv.str();
 }
 
-std::string getOperatingSystemInfo()
-{
 #ifdef _WIN32
-  std::stringstream rv;
-  rv << "Windows ";
-  OSVERSIONINFOEX ovi = {sizeof(OSVERSIONINFOEX)};
-#if _MSC_VER >= 1200
-  // Disable compilation warnings.
-#pragma warning(push)
-#pragma warning(disable:4996)
+BOOL GetNtVersionNumbers(
+    DWORD &dwMajorVer, DWORD &dwMinorVer, DWORD &dwBuildNumber) {
+    BOOL bRet = FALSE;
+    HMODULE hModNtdll = nullptr;
+  //  hModNtdll = ::LoadLibraryW(L"ntdll.dll");
+    hModNtdll = ::GetModuleHandleW(L"ntdll.dll");
+    if (hModNtdll != nullptr) {
+        typedef void(WINAPI * pfRTLGETNTVERSIONNUMBERS)(
+            DWORD *, DWORD *, DWORD *);
+        pfRTLGETNTVERSIONNUMBERS pfRtlGetNtVersionNumbers;
+        pfRtlGetNtVersionNumbers = (pfRTLGETNTVERSIONNUMBERS)::GetProcAddress(
+            hModNtdll, "RtlGetNtVersionNumbers");
+        if (pfRtlGetNtVersionNumbers) {
+            pfRtlGetNtVersionNumbers(&dwMajorVer, &dwMinorVer, &dwBuildNumber);
+            dwBuildNumber &= 0x0ffff;
+            bRet = TRUE;
+        }
+        // ::FreeLibrary(hModNtdll);
+        // hModNtdll = nullptr;
+    }
+    if (bRet==FALSE) {
+      OSVERSIONINFOEX ovi = {sizeof(OSVERSIONINFOEX)};
+      #if _MSC_VER >= 1200
+        // Disable compilation warnings.
+      #pragma warning(push)
+      #pragma warning(disable:4996)
+      #endif
+      if (GetVersionEx((LPOSVERSIONINFO)&ovi)) {
+        dwMajorVer = ovi.dwMajorVersion;
+        dwMinorVer = ovi.dwMinorVersion;
+        dwBuildNumber = ovi.dwBuildNumber;
+        bRet = TRUE;
+      }
+      #if _MSC_VER >= 1200
+        // Restore compilation warnings.
+      #pragma warning(pop)
+      #endif
+    }
+    return bRet;
+}
 #endif
-  if (!GetVersionEx((LPOSVERSIONINFO)&ovi)) {
-    rv << "Unknown";
+
+std::string getOperatingSystemInfo() {
+#ifdef _WIN32
+    std::stringstream rv;
+    rv << "Windows ";
+    DWORD dwMajorVersion = 0, dwMinorVersion = 0, dwBuildNumber = 0;
+    BOOL const ret =
+        GetNtVersionNumbers(dwMajorVersion, dwMinorVersion, dwBuildNumber);
+    if (ret == FALSE) {
+        rv << "Unknown";
+        return rv.str();
+    }
+    if (dwMajorVersion < 6) {
+        rv << "Legacy, probably XP";
+        return rv.str();
+    }
+    if (dwMajorVersion == 6) {
+        switch (dwMinorVersion) {
+            case 0:
+                rv << "Vista";
+                break;
+
+            case 1:
+                rv << "7";
+                break;
+
+            case 2:
+                rv << "8";
+                break;
+
+            case 3:
+                rv << "8.1";
+                break;
+
+            default:
+                rv << "Unknown";
+                break;
+        }
+    } else if (dwMajorVersion == 10) {
+        if (dwBuildNumber < 22000) {
+            rv << "10";
+        } else {
+            rv << "11";
+        }
+    } else {
+        rv << "Unknown";
+    }
+#ifdef _WIN64
+    rv << " (x86_64)";
+#endif // _WIN64
+    rv << " (" << dwMajorVersion << "." << dwMinorVersion << "."
+       << dwBuildNumber << ")";
     return rv.str();
-  }
-#if _MSC_VER >= 1200
-  // Restore compilation warnings.
-#pragma warning(pop)
-#endif
-
-  if (ovi.dwMajorVersion < 6) {
-    rv << "Legacy, probably XP";
-    return rv.str();
-  }
-  switch (ovi.dwMinorVersion) {
-  case 0:
-    if (ovi.wProductType == VER_NT_WORKSTATION) {
-      rv << "Vista";
-    }
-    else {
-      rv << "Server 2008";
-    }
-    break;
-
-  case 1:
-    if (ovi.wProductType == VER_NT_WORKSTATION) {
-      rv << "7";
-    }
-    else {
-      rv << "Server 2008 R2";
-    }
-    break;
-
-  default:
-    // Windows above 6.2 does not actually say so. :p
-
-    rv << ovi.dwMajorVersion;
-    if (ovi.dwMinorVersion) {
-      rv << "." << ovi.dwMinorVersion;
-    }
-    if (ovi.wProductType != VER_NT_WORKSTATION) {
-      rv << " Server";
-    }
-    break;
-  }
-  if (ovi.szCSDVersion[0]) {
-    rv << " (" << ovi.szCSDVersion << ")";
-  }
-#  ifdef _WIN64
-  rv << " (x86_64)";
-#  endif // _WIN64
-  rv << " (" << ovi.dwMajorVersion << "." << ovi.dwMinorVersion << ")";
-  return rv.str();
 #else //! _WIN32
-#  ifdef HAVE_SYS_UTSNAME_H
-  struct utsname name;
-  if (!uname(&name)) {
-    if (!strstr(name.version, name.sysname) ||
-        !strstr(name.version, name.release) ||
-        !strstr(name.version, name.machine)) {
-      std::stringstream ss;
-      ss << name.sysname << " " << name.release << " " << name.version << " "
-         << name.machine;
-      return ss.str();
+#ifdef HAVE_SYS_UTSNAME_H
+    struct utsname name;
+    if (!uname(&name)) {
+        if (!strstr(name.version, name.sysname)
+            || !strstr(name.version, name.release)
+            || !strstr(name.version, name.machine)) {
+            std::stringstream ss;
+            ss << name.sysname << " " << name.release << " " << name.version
+               << " " << name.machine;
+            return ss.str();
+        }
+        return name.version;
     }
-    return name.version;
-  }
-#  endif // HAVE_SYS_UTSNAME_H
-  return "Unknown system";
-#endif   // !_WIN32
+#endif // HAVE_SYS_UTSNAME_H
+    return "Unknown system";
+#endif // !_WIN32
 }
 
 } // namespace aria2
