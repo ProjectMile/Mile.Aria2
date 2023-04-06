@@ -44,5 +44,10 @@
   <ItemGroup>
     <Manifest Include="Mile.Aria2.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Mile.Aria2.nuspec" />
+    <None Include="Mile.Aria2.targets" />
+    <None Include="_._" />
+  </ItemGroup>
   <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.targets" />
 </Project>
