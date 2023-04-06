@@ -58,13 +58,12 @@ namespace
 
 int wmain(int argc, wchar_t** argv)
 {
-    std::vector<std::string> utf8_strings;
     std::vector<char*> utf8_argv;
 
     for (int i = 0; i < argc; ++i)
     {
-        utf8_strings.push_back(::ToMultiByteString(CP_UTF8, argv[i]));
-        utf8_argv.push_back(const_cast<char*>(utf8_strings[i].c_str())); 
+        utf8_argv.push_back(::_strdup(
+            ::ToMultiByteString(CP_UTF8, argv[i]).c_str()));
     }
     utf8_argv.push_back(nullptr);
 
