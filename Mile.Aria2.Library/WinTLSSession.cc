@@ -797,6 +797,9 @@ restart:
     case 0x303:
       version = TLS_PROTO_TLS12;
       break;
+    case 0x304:
+      version = TLS_PROTO_TLS13;
+      break;
     default:
       assert(0);
       abort();

@@ -43,6 +43,9 @@
 
 #include <windows.h>
 #include <security.h>
+
+#define SCHANNEL_USE_BLACKLISTS 1
+#include <subauth.h>
 #include <schnlsp.h>
 
 #include "TLSContext.h"
@@ -65,7 +68,7 @@ typedef std::unique_ptr<CredHandle, cred_deleter> CredPtr;
 
 class WinTLSContext : public TLSContext {
 public:
-  WinTLSContext(TLSSessionSide side, TLSVersion ver);
+  WinTLSContext(TLSSessionSide side, TLSVersion ver, DWORD dwMajorVersion, DWORD dwBuildNumber);
 
   virtual ~WinTLSContext();
 
@@ -90,7 +93,8 @@ public:
 
 private:
   TLSSessionSide side_;
-  SCHANNEL_CRED credentials_;
+  SCH_CREDENTIALS credentials_;
+  TLS_PARAMETERS tls_parameters_;
   HCERTSTORE store_;
   wintls::CredPtr cred_;
 };
