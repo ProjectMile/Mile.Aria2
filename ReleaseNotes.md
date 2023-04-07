@@ -1,5 +1,12 @@
 ﻿# Mile.Aria2 Release Notes
 
+**Mile.Aria2 1.0 (1.0.8.0)**
+
+- Improve Windows version detection and display. (Contributed by ElemenTP.)
+- Fix the TLS renegotiation handling. (Contributed by ElemenTP.)
+- Add TLS 1.3 support for WinTLS backend. (Contributed by ElemenTP.)
+- Adjust target framework setting for NuGet package. (Thanks to 高怡飞.)
+
 **Mile.Aria2 1.0 (1.0.7.0)**
 
 - Fix command line parsing issue.
