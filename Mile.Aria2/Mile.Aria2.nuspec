@@ -11,7 +11,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Mile.Aria2</id>
-    <version>1.0.7.0</version>
+    <version>1.0.8.0</version>
     <description>Customized version of aria2, specialize for MSVC toolchain</description>
     <authors>Kenji Mouri</authors>
     <projectUrl>https://github.com/ProjectMile/Mile.Aria2</projectUrl>
