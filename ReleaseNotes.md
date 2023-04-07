@@ -1,5 +1,10 @@
 ﻿# Mile.Aria2 Release Notes
 
+**Mile.Aria2 1.0 (1.0.7.0)**
+
+- Fix command line parsing issue.
+- Make NuGet package support .NET platform.
+
 **Mile.Aria2 1.0 (1.0.6.0)**
 
 - Remove the GMP dependency.
