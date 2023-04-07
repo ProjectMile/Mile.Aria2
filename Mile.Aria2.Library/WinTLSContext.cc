@@ -44,6 +44,7 @@
 #include "fmt.h"
 #include "message.h"
 #include "util.h"
+#include "FeatureConfig.h"
 
 #ifndef SP_PROT_TLS1_1_CLIENT
 #  define SP_PROT_TLS1_1_CLIENT 0x00000200
@@ -57,6 +58,12 @@
 #ifndef SP_PROT_TLS1_2_SERVER
 #  define SP_PROT_TLS1_2_SERVER 0x00000400
 #endif
+#ifndef SP_PROT_TLS1_3_CLIENT
+#  define SP_PROT_TLS1_3_CLIENT 0x00002000
+#endif
+#ifndef SP_PROT_TLS1_3_SERVER
+#  define SP_PROT_TLS1_3_SERVER 0x00001000
+#endif
 
 #ifndef SCH_USE_STRONG_CRYPTO
 #  define SCH_USE_STRONG_CRYPTO 0x00400000
@@ -67,20 +74,35 @@
 
 namespace aria2 {
 
-WinTLSContext::WinTLSContext(TLSSessionSide side, TLSVersion ver)
+WinTLSContext::WinTLSContext(TLSSessionSide side, TLSVersion ver,
+                             DWORD dwMajorVersion, DWORD dwBuildNumber)
     : side_(side), store_(0)
 {
-  memset(&credentials_, 0, sizeof(credentials_));
-  credentials_.dwVersion = SCHANNEL_CRED_VERSION;
-  credentials_.grbitEnabledProtocols = 0;
+  bool allowtls13 = false;
+  // Only enable TLS 1.3 for Windows Server 2022 and newer (including
+  // Windows 11). Previous builds of Windows 10 had broken TLS 1.3
+  // implementations
+  if (dwMajorVersion == 10 && dwBuildNumber >= 20348) {
+    allowtls13 = true;
+  }
+  else if (dwMajorVersion > 10) {
+    allowtls13 = true;
+  }
+  DWORD enabled_protocols = 0;
   if (side_ == TLS_CLIENT) {
     switch (ver) {
     case TLS_PROTO_TLS11:
-      credentials_.grbitEnabledProtocols |= SP_PROT_TLS1_1_CLIENT;
+      enabled_protocols |= SP_PROT_TLS1_1_CLIENT;
     // fall through
     case TLS_PROTO_TLS12:
-      credentials_.grbitEnabledProtocols |= SP_PROT_TLS1_2_CLIENT;
-      break;
+      enabled_protocols |= SP_PROT_TLS1_2_CLIENT;
+    // fall through
+    case TLS_PROTO_TLS13:
+      if (allowtls13) {
+        enabled_protocols |= SP_PROT_TLS1_3_CLIENT;
+      }
+      if (enabled_protocols)
+        break;
     default:
       assert(0);
       abort();
@@ -89,27 +111,38 @@ WinTLSContext::WinTLSContext(TLSSessionSide side, TLSVersion ver)
   else {
     switch (ver) {
     case TLS_PROTO_TLS11:
-      credentials_.grbitEnabledProtocols |= SP_PROT_TLS1_1_SERVER;
+      enabled_protocols |= SP_PROT_TLS1_1_SERVER;
     // fall through
     case TLS_PROTO_TLS12:
-      credentials_.grbitEnabledProtocols |= SP_PROT_TLS1_2_SERVER;
-      break;
+      enabled_protocols |= SP_PROT_TLS1_2_SERVER;
+    // fall through
+    case TLS_PROTO_TLS13:
+      if (allowtls13) {
+        enabled_protocols |= SP_PROT_TLS1_3_SERVER;
+      }
+      if (enabled_protocols)
+        break;
     default:
       assert(0);
       abort();
     }
   }
 
-  // Strong protocol versions: Use a minimum strength, which might be later
-  // refined using SCH_USE_STRONG_CRYPTO in the flags.
-  credentials_.dwMinimumCipherStrength = STRONG_CIPHER_BITS;
+  memset(&credentials_, 0, sizeof(credentials_));
+  memset(&tls_parameters_, 0, sizeof(tls_parameters_));
+  credentials_.dwVersion = SCH_CREDENTIALS_VERSION;
+  tls_parameters_.grbitDisabledProtocols = (DWORD)~enabled_protocols;
+  credentials_.cTlsParameters = 1;
+  credentials_.pTlsParameters = &tls_parameters_;
 
   setVerifyPeer(side_ == TLS_CLIENT);
 }
 
 TLSContext* TLSContext::make(TLSSessionSide side, TLSVersion ver)
 {
-  return new WinTLSContext(side, ver);
+  DWORD dwMajorVersion = 0, dwMinorVersion = 0, dwBuildNumber = 0;
+  GetNtVersionNumbers(dwMajorVersion, dwMinorVersion, dwBuildNumber);
+  return new WinTLSContext(side, ver, dwMajorVersion, dwBuildNumber);
 }
 
 WinTLSContext::~WinTLSContext()
@@ -127,31 +160,27 @@ bool WinTLSContext::getVerifyPeer() const
 
 void WinTLSContext::setVerifyPeer(bool verify)
 {
-  cred_.reset();
-
   // Never automatically push any client or server certs. We'll do cert setup
   // ourselves.
-  credentials_.dwFlags = SCH_CRED_NO_DEFAULT_CREDS;
-
-  if (credentials_.dwMinimumCipherStrength > WEAK_CIPHER_BITS) {
-    // Enable strong crypto if we already set a minimum cipher streams.
-    // This might actually require even stronger algorithms, which is a good
-    // thing.
-    credentials_.dwFlags |= SCH_USE_STRONG_CRYPTO;
-  }
+  // Enable strong crypto for new api
+  credentials_.dwFlags = SCH_CRED_NO_DEFAULT_CREDS | SCH_USE_STRONG_CRYPTO;
 
   if (side_ != TLS_CLIENT || !verify) {
     // No verification for servers and if user explicitly requested it
-    credentials_.dwFlags |=
-        SCH_CRED_MANUAL_CRED_VALIDATION | SCH_CRED_IGNORE_NO_REVOCATION_CHECK |
-        SCH_CRED_IGNORE_REVOCATION_OFFLINE | SCH_CRED_NO_SERVERNAME_CHECK;
+    credentials_.dwFlags |= SCH_CRED_MANUAL_CRED_VALIDATION |
+                             SCH_CRED_IGNORE_NO_REVOCATION_CHECK |
+                             SCH_CRED_IGNORE_REVOCATION_OFFLINE |
+                             SCH_CRED_NO_SERVERNAME_CHECK;
+
     return;
   }
 
   // Verify other side's cert chain.
   credentials_.dwFlags |= SCH_CRED_AUTO_CRED_VALIDATION |
-                          SCH_CRED_REVOCATION_CHECK_CHAIN |
-                          SCH_CRED_IGNORE_NO_REVOCATION_CHECK;
+                           SCH_CRED_REVOCATION_CHECK_CHAIN |
+                           SCH_CRED_IGNORE_NO_REVOCATION_CHECK;
+
+  cred_.reset();
 }
 
 CredHandle* WinTLSContext::getCredHandle()
@@ -176,10 +205,11 @@ CredHandle* WinTLSContext::getCredHandle()
     credentials_.cCreds = 0;
     credentials_.paCred = nullptr;
   }
-  SECURITY_STATUS status = ::AcquireCredentialsHandleW(
+  SECURITY_STATUS status;
+  status = ::AcquireCredentialsHandleW(
       nullptr, (SEC_WCHAR*)UNISP_NAME_W,
-      side_ == TLS_CLIENT ? SECPKG_CRED_OUTBOUND : SECPKG_CRED_INBOUND, nullptr,
-      &credentials_, nullptr, nullptr, cred_.get(), &ts);
+      side_ == TLS_CLIENT ? SECPKG_CRED_OUTBOUND : SECPKG_CRED_INBOUND,
+      nullptr, &credentials_, nullptr, nullptr, cred_.get(), &ts);
   if (ctx) {
     ::CertFreeCertificateContext(ctx);
   }
@@ -203,7 +233,7 @@ bool WinTLSContext::addCredentialFile(const std::string& certfile,
   }
   HCERTSTORE store =
       ::PFXImportCertStore(&blob, L"", CRYPT_EXPORTABLE | CRYPT_USER_KEYSET);
-  if (!store_) {
+  if (!store) {
     store = ::PFXImportCertStore(&blob, nullptr,
                                  CRYPT_EXPORTABLE | CRYPT_USER_KEYSET);
   }

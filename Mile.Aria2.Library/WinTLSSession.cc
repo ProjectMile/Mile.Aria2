@@ -317,7 +317,7 @@ int WinTLSSession::sendTLSRecord()
 ssize_t WinTLSSession::writeData(const void* data, size_t len)
 {
   if (state_ == st_handshake_write || state_ == st_handshake_write_last ||
-      state_ == st_handshake_read) {
+      state_ == st_handshake_read || state_ == st_handshake_set) {
     // Renegotiating
     std::string hn, err;
     TLSVersion ver;
@@ -461,7 +461,7 @@ ssize_t WinTLSSession::readData(void* data, size_t len)
   }
 
   if (state_ == st_handshake_write || state_ == st_handshake_write_last ||
-      state_ == st_handshake_read) {
+      state_ == st_handshake_read || state_ == st_handshake_set) {
     // Renegotiating
     std::string hn, err;
     TLSVersion ver;
@@ -538,7 +538,7 @@ ssize_t WinTLSSession::readData(void* data, size_t len)
 
     if (status_ == SEC_I_RENEGOTIATE) {
       // Renegotiation basically means performing another handshake
-      state_ = st_initialized;
+      state_ = st_handshake_set;
       A2_LOG_INFO("WinTLS: Renegotiate");
       std::string hn, err;
       TLSVersion ver;
@@ -694,7 +694,10 @@ restart:
     if (!readBuf_.size()) {
       return TLS_ERR_WOULDBLOCK;
     }
+  }
+    // Fall through
 
+  case st_handshake_set: {
     // Need to copy the data, as Schannel is free to mess with it. But we
     // might later need unmodified data from the original read buffer.
     auto bufcopy = make_unique<char[]>(readBuf_.size());
@@ -793,6 +796,9 @@ restart:
       break;
     case 0x303:
       version = TLS_PROTO_TLS12;
+      break;
+    case 0x304:
+      version = TLS_PROTO_TLS13;
       break;
     default:
       assert(0);

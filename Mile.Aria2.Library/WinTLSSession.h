@@ -120,6 +120,7 @@ class WinTLSSession : public TLSSession {
     st_handshake_write,
     st_handshake_write_last,
     st_handshake_read,
+    st_handshake_set,
     st_handshake_done,
     st_connected,
     st_closing,
