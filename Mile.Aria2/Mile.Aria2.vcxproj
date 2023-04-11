@@ -22,22 +22,9 @@
   </PropertyGroup>
   <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.Default.props" />
   <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.props" />
+  <Import Project="..\Mile.Aria2.Dependencies\Mile.Aria2.Dependencies.props" />
   <Import Project="..\Mile.Aria2.Wslay\Mile.Aria2.Wslay.props" />
   <Import Project="..\Mile.Aria2.Library\Mile.Aria2.Library.props" />
-  <PropertyGroup>
-    <DependenciesPlatform Condition="'$(Platform)'=='ARM'">arm</DependenciesPlatform>
-    <DependenciesPlatform Condition="'$(Platform)'=='ARM64'">arm64</DependenciesPlatform>
-    <DependenciesPlatform Condition="'$(Platform)'=='Win32'">x86</DependenciesPlatform>
-    <DependenciesPlatform Condition="'$(Platform)'=='x64'">x64</DependenciesPlatform>
-    <IncludePath>..\Mile.Aria2.Dependencies\Include\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Mile.Aria2.Dependencies\Lib\$(DependenciesPlatform)\;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
-  <ItemDefinitionGroup>
-    <Link>
-      <AdditionalDependencies>cares.lib;libexpatMT.lib;libssh2.lib;sqlite3.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImageHasSafeExceptionHandlers Condition="'$(Platform)'=='Win32'">false</ImageHasSafeExceptionHandlers>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Mile.Aria2.cpp" />
   </ItemGroup>

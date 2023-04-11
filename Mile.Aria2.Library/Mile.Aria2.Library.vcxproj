@@ -12,14 +12,7 @@
   </PropertyGroup>
   <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.Default.props" />
   <Import Project="..\Mile.Project.Windows\Mile.Project.Cpp.props" />
-  <PropertyGroup>
-    <DependenciesPlatform Condition="'$(Platform)'=='ARM'">arm</DependenciesPlatform>
-    <DependenciesPlatform Condition="'$(Platform)'=='ARM64'">arm64</DependenciesPlatform>
-    <DependenciesPlatform Condition="'$(Platform)'=='Win32'">x86</DependenciesPlatform>
-    <DependenciesPlatform Condition="'$(Platform)'=='x64'">x64</DependenciesPlatform>
-    <IncludePath>..\Mile.Aria2.Dependencies\Include\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Mile.Aria2.Dependencies\Lib\$(DependenciesPlatform)\;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
+  <Import Project="..\Mile.Aria2.Dependencies\Mile.Aria2.Dependencies.props" />
   <Import Project="..\Mile.Aria2.Wslay\Mile.Aria2.Wslay.props" />
   <PropertyGroup>
     <IncludePath>$(MSBuildThisFileDirectory)..\Mile.Aria2.Unistd\;$(MSBuildThisFileDirectory);$(IncludePath)</IncludePath>
