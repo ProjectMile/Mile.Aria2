@@ -1,4 +1,4 @@
-/* <!-- copyright */
+﻿/* <!-- copyright */
 /*
  * aria2 - The high speed download utility
  *
@@ -332,66 +332,23 @@ std::string usedCompilerAndPlatform()
   return rv.str();
 }
 
-#ifdef _WIN32
-BOOL GetNtVersionNumbers(
-    DWORD &dwMajorVer, DWORD &dwMinorVer, DWORD &dwBuildNumber) {
-    BOOL bRet = FALSE;
-    HMODULE hModNtdll = nullptr;
-  //  hModNtdll = ::LoadLibraryW(L"ntdll.dll");
-    hModNtdll = ::GetModuleHandleW(L"ntdll.dll");
-    if (hModNtdll != nullptr) {
-        typedef void(WINAPI * pfRTLGETNTVERSIONNUMBERS)(
-            DWORD *, DWORD *, DWORD *);
-        pfRTLGETNTVERSIONNUMBERS pfRtlGetNtVersionNumbers;
-        pfRtlGetNtVersionNumbers = (pfRTLGETNTVERSIONNUMBERS)::GetProcAddress(
-            hModNtdll, "RtlGetNtVersionNumbers");
-        if (pfRtlGetNtVersionNumbers) {
-            pfRtlGetNtVersionNumbers(&dwMajorVer, &dwMinorVer, &dwBuildNumber);
-            dwBuildNumber &= 0x0ffff;
-            bRet = TRUE;
-        }
-        // ::FreeLibrary(hModNtdll);
-        // hModNtdll = nullptr;
-    }
-    if (bRet==FALSE) {
-      OSVERSIONINFOEX ovi = {sizeof(OSVERSIONINFOEX)};
-      #if _MSC_VER >= 1200
-        // Disable compilation warnings.
-      #pragma warning(push)
-      #pragma warning(disable:4996)
-      #endif
-      if (GetVersionEx((LPOSVERSIONINFO)&ovi)) {
-        dwMajorVer = ovi.dwMajorVersion;
-        dwMinorVer = ovi.dwMinorVersion;
-        dwBuildNumber = ovi.dwBuildNumber;
-        bRet = TRUE;
-      }
-      #if _MSC_VER >= 1200
-        // Restore compilation warnings.
-      #pragma warning(pop)
-      #endif
-    }
-    return bRet;
-}
-#endif
-
 std::string getOperatingSystemInfo() {
 #ifdef _WIN32
     std::stringstream rv;
     rv << "Windows ";
-    DWORD dwMajorVersion = 0, dwMinorVersion = 0, dwBuildNumber = 0;
-    BOOL const ret =
-        GetNtVersionNumbers(dwMajorVersion, dwMinorVersion, dwBuildNumber);
-    if (ret == FALSE) {
+    OSVERSIONINFOW VersionInformation = { 0 };
+    VersionInformation.dwOSVersionInfoSize = sizeof(OSVERSIONINFOW);
+    BOOL Result = ::MileGetWindowsVersion(&VersionInformation);
+    if (Result == FALSE) {
         rv << "Unknown";
         return rv.str();
     }
-    if (dwMajorVersion < 6) {
+    if (VersionInformation.dwMajorVersion < 6) {
         rv << "Legacy, probably XP";
         return rv.str();
     }
-    if (dwMajorVersion == 6) {
-        switch (dwMinorVersion) {
+    if (VersionInformation.dwMajorVersion == 6) {
+        switch (VersionInformation.dwMinorVersion) {
             case 0:
                 rv << "Vista";
                 break;
@@ -412,8 +369,8 @@ std::string getOperatingSystemInfo() {
                 rv << "Unknown";
                 break;
         }
-    } else if (dwMajorVersion == 10) {
-        if (dwBuildNumber < 22000) {
+    } else if (VersionInformation.dwMajorVersion == 10) {
+        if (VersionInformation.dwBuildNumber < 22000) {
             rv << "10";
         } else {
             rv << "11";
@@ -424,8 +381,9 @@ std::string getOperatingSystemInfo() {
 #ifdef _WIN64
     rv << " (x86_64)";
 #endif // _WIN64
-    rv << " (" << dwMajorVersion << "." << dwMinorVersion << "."
-       << dwBuildNumber << ")";
+    rv << " (" << VersionInformation.dwMajorVersion
+       << "." << VersionInformation.dwMinorVersion
+       << "." << VersionInformation.dwBuildNumber << ")";
     return rv.str();
 #else //! _WIN32
 #ifdef HAVE_SYS_UTSNAME_H

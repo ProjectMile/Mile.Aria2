@@ -140,9 +140,14 @@ WinTLSContext::WinTLSContext(TLSSessionSide side, TLSVersion ver,
 
 TLSContext* TLSContext::make(TLSSessionSide side, TLSVersion ver)
 {
-  DWORD dwMajorVersion = 0, dwMinorVersion = 0, dwBuildNumber = 0;
-  GetNtVersionNumbers(dwMajorVersion, dwMinorVersion, dwBuildNumber);
-  return new WinTLSContext(side, ver, dwMajorVersion, dwBuildNumber);
+    OSVERSIONINFOW VersionInformation = { 0 };
+    VersionInformation.dwOSVersionInfoSize = sizeof(OSVERSIONINFOW);
+    BOOL Result = ::MileGetWindowsVersion(&VersionInformation);
+    return new WinTLSContext(
+        side,
+        ver,
+        VersionInformation.dwMajorVersion,
+        VersionInformation.dwBuildNumber);
 }
 
 WinTLSContext::~WinTLSContext()
