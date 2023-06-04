@@ -66,7 +66,7 @@ public:
 namespace expr {
 
 template <typename L, typename R, typename Op> struct BinExpr {
-  typedef typename Op::result_type value_type;
+  typedef typename L::value_type value_type;
 
   BinExpr(L lhs, R rhs, Op op)
       : lhs(std::move(lhs)), rhs(std::move(rhs)), op(std::move(op))

@@ -45,7 +45,12 @@
 
 namespace aria2 {
 
-class SizeFormatter : public std::unary_function<int64_t, std::string> {
+class SizeFormatter {
+public:
+
+  typedef int64_t argument_type;
+  typedef std::string result_type;
+
 protected:
   virtual std::string format(int64_t size) const = 0;
 
