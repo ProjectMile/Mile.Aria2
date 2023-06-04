@@ -12,6 +12,7 @@ Customized version of aria2, specialize for MSVC toolchain.
   1.36.0.
 - Use [VC-LTL 5.x](https://github.com/Chuyu-Team/VC-LTL5) toolchain to make the
   binary size smaller.
+- Adapt to C++ compilers with later than C++14 standards.
 
 ## System Requirements
 
