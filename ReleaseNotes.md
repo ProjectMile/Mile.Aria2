@@ -1,5 +1,10 @@
 ﻿# Mile.Aria2 Release Notes
 
+**Mile.Aria2 1.0 (1.0.66.0)**
+
+- Adapt to C++ compilers with later than C++14 standards.
+- Adjust several implementations.
+
 **Mile.Aria2 1.0 (1.0.8.0)**
 
 - Improve Windows version detection and display. (Contributed by ElemenTP.)
