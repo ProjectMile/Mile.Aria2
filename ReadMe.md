@@ -4,7 +4,8 @@
 [![GitHub Releases](https://img.shields.io/github/v/release/ProjectMile/Mile.Aria2?include_prereleases)](https://github.com/ProjectMile/Mile.Aria2/releases)
 [![NuGet Package](https://img.shields.io/nuget/vpre/Mile.Aria2)](https://www.nuget.org/packages/Mile.Aria2)
 
-Customized version of aria2, specialize for MSVC toolchain.
+Customized version of [aria2](https://github.com/aria2/aria2), specialize for
+MSVC toolchain.
 
 ## Features
 
