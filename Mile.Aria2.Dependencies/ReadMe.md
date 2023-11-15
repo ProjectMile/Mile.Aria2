@@ -2,6 +2,8 @@
 
 Prebuilt binaries for aria2 dependencies
 
+Libraries: zlib/1.3.0 expat/2.5.0 sqlite3/3.43.1 c-ares/1.19.0 libssh2/1.11.0
+
 ## Build
 
 Note: You can do some modifications for vcpkg libssh package for using Secure
