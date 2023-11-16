@@ -1,5 +1,14 @@
 ﻿# Mile.Aria2 Release Notes
 
+**Mile.Aria2 1.0 (1.0.230.0)**
+
+- Update aria2 to 1.37.0.
+- Update zlib to 1.3.0 from vcpkg 2023.10.19.
+- Update SQLite to 3.43.1 from vcpkg 2023.10.19.
+- Update libssh2 to 1.11.0 from vcpkg 2023.10.19.
+- Update Mile.Windows.Helpers to 1.0.27.
+- Update Mile.Project.Windows.
+
 **Mile.Aria2 1.0 (1.0.66.0)**
 
 - Adapt to C++ compilers with later than C++14 standards.
