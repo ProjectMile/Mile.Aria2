@@ -10,7 +10,7 @@ MSVC toolchain.
 ## Features
 
 - Inherited all features provided in the official Windows binaries from aria2
-  1.36.0.
+  1.37.0.
 - Use [VC-LTL 5.x](https://github.com/Chuyu-Team/VC-LTL5) toolchain to make the
   binary size smaller.
 - Adapt to C++ compilers with later than C++14 standards.

@@ -104,9 +104,6 @@ void MetalinkEntry::reorderMetaurlsByPriority()
 namespace {
 class Supported {
 public:
-  typedef std::shared_ptr<MetalinkResource> argument_type;
-  typedef bool result_type;
-
   bool operator()(const std::shared_ptr<MetalinkResource>& res) const
   {
     switch (res->type) {

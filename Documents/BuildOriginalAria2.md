@@ -91,9 +91,9 @@ make install -j8
 make clean
 
 
-https://github.com/aria2/aria2/releases/download/release-1.36.0/aria2-1.36.0.tar.xz
+https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz
 
-cd /c/msys2/aria2-1.36.0
+cd /c/msys2/aria2-1.37.0
 
 autoreconf -ifv
 

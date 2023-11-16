@@ -561,7 +561,7 @@
 #define PACKAGE_NAME "aria2"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "aria2 1.36.0"
+#define PACKAGE_STRING "aria2 1.37.0"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "aria2"
@@ -570,7 +570,7 @@
 #define PACKAGE_URL "https://aria2.github.io/"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.36.0"
+#define PACKAGE_VERSION "1.37.0"
 
 /* Use security.h in WIN32 mode */
 #define SECURITY_WIN32 1
@@ -720,7 +720,7 @@
 
 
 /* Version number of package */
-#define VERSION "1.36.0"
+#define VERSION "1.37.0"
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */

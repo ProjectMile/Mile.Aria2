@@ -46,11 +46,6 @@
 namespace aria2 {
 
 class SizeFormatter {
-public:
-
-  typedef int64_t argument_type;
-  typedef std::string result_type;
-
 protected:
   virtual std::string format(int64_t size) const = 0;
 

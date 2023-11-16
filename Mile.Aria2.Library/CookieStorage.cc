@@ -354,11 +354,6 @@ public:
 namespace {
 class OrderByPathDepthDesc {
 public:
-
-  typedef Cookie first_argument_type;
-  typedef Cookie second_argument_type;
-  typedef bool result_type;
-
   bool operator()(const CookiePathDivider& lhs,
                   const CookiePathDivider& rhs) const
   {
