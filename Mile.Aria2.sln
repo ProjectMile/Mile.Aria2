@@ -14,10 +14,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mile.Aria2", "Mile.Aria2\Mi
 		{E51989D4-79D3-4EAC-A7BF-F076996821BB} = {E51989D4-79D3-4EAC-A7BF-F076996821BB}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MaintainerTools", "MaintainerTools", "{07E76683-39D8-4366-8BDA-B5D1F14CA32D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mile.Aria2.RefreshPackageVersion", "Mile.Aria2.RefreshPackageVersion\Mile.Aria2.RefreshPackageVersion.csproj", "{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -64,20 +60,9 @@ Global
 		{696BC0B6-CA75-4955-97DE-A0A14345C55E}.Release|x64.Build.0 = Release|x64
 		{696BC0B6-CA75-4955-97DE-A0A14345C55E}.Release|x86.ActiveCfg = Release|Win32
 		{696BC0B6-CA75-4955-97DE-A0A14345C55E}.Release|x86.Build.0 = Release|Win32
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}.Debug|x64.Build.0 = Debug|Any CPU
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}.Release|x64.ActiveCfg = Release|Any CPU
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}.Release|x64.Build.0 = Release|Any CPU
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{0DA43A87-FBF9-4FE5-9BA8-E2A80627B89F} = {07E76683-39D8-4366-8BDA-B5D1F14CA32D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83D4DF60-ADE6-4017-9BB2-C0D4030A2114}
