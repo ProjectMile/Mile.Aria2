@@ -1,0 +1,10 @@
+namespace Mile.Aria2
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SessionManager 
+    {
+        SessionManager();
+        Int32 MyProperty;
+    }
+}
