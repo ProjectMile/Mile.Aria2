@@ -44,6 +44,7 @@ namespace aria2 {
 // IOFILE implementation using standard I/O functions.
 class BufferedFile : public IOFile {
 public:
+  const char* Mode;
   BufferedFile(const char* filename, const char* mode);
   BufferedFile(FILE* fp);
   virtual ~BufferedFile();
