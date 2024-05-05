@@ -55,6 +55,7 @@ BufferedFile::BufferedFile(const char* filename, const char* mode)
               ),
       supportsColor_(fp_ ? isatty(fileno(fp_)) : false)
 {
+    Mode = mode;
 }
 
 BufferedFile::BufferedFile(FILE* fp)
@@ -80,12 +81,14 @@ int BufferedFile::onClose()
 {
   int rv = 0;
   if (fp_) {
+    if (strcmp(Mode, "rb") != 0) {
     fflush(fp_);
 #ifndef __MINGW32__
     fsync(fileno(fp_));
 #else  // __MINGW32__
-    _commit(fileno(fp_));
+        _commit(fileno(fp_));
 #endif // __MINGW32__
+    }
     if (fp_ != stdin && fp_ != stderr) {
       rv = fclose(fp_);
     }
