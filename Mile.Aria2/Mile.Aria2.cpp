@@ -18,16 +18,18 @@ extern "C" int aria2_main(int argc, char** argv);
 
 #include <Mile.Helpers.CppBase.h>
 
-int wmain(int argc, wchar_t** argv)
+int main()
 {
-    std::vector<char*> utf8_argv;
+    std::vector<std::string> Arguments = Mile::SplitCommandLineString(
+        Mile::ToString(CP_UTF8, ::GetCommandLineW()));
 
+    int argc = static_cast<int>(Arguments.size());
+    std::vector<char*> argv;
     for (int i = 0; i < argc; ++i)
     {
-        utf8_argv.push_back(::_strdup(
-            Mile::ToString(CP_UTF8, argv[i]).c_str()));
+        argv.push_back(Arguments[i].data());
     }
-    utf8_argv.push_back(nullptr);
+    argv.push_back(nullptr);
 
-    return aria2_main(argc, &utf8_argv[0]);
+    return ::aria2_main(argc, argv.data());
 }
