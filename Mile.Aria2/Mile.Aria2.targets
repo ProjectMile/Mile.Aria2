@@ -9,10 +9,7 @@
   DEVELOPER: MouriNaruto (KurikoMouri@outlook.jp)
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <MileAria2RedistPath>$(MSBuildThisFileDirectory)..\..\Redist\$(PlatformTarget)\</MileAria2RedistPath>
-  </PropertyGroup>
   <ItemGroup>
-    <ReferenceCopyLocalPaths Include="$(MileAria2RedistPath)*.*" />
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\Redist\$(PlatformTarget)\*.*" />
   </ItemGroup>
 </Project>
