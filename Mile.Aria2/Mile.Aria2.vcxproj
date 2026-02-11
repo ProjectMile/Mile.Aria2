@@ -25,6 +25,12 @@
   <Import Project="..\Mile.Aria2.Dependencies\Mile.Aria2.Dependencies.props" />
   <Import Project="..\Mile.Aria2.Wslay\Mile.Aria2.Wslay.props" />
   <Import Project="..\Mile.Aria2.Library\Mile.Aria2.Library.props" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <RuntimeLibrary Condition="'$(Configuration)' == 'Debug'">MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)' == 'Release'">MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Mile.Aria2.cpp" />
   </ItemGroup>
