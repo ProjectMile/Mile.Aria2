@@ -1,0 +1,14 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Mile.Aria2.Library/Mile.Aria2.Library.vcxproj" Id="e51989d4-79d3-4eac-a7bf-f076996821bb">
+    <BuildDependency Project="Mile.Aria2.Wslay/Mile.Aria2.Wslay.vcxproj" />
+  </Project>
+  <Project Path="Mile.Aria2.Wslay/Mile.Aria2.Wslay.vcxproj" Id="e8c0dbbe-0b8f-40b2-bace-d5e3876a57e1" />
+  <Project Path="Mile.Aria2/Mile.Aria2.vcxproj" Id="696bc0b6-ca75-4955-97de-a0a14345c55e">
+    <BuildDependency Project="Mile.Aria2.Library/Mile.Aria2.Library.vcxproj" />
+  </Project>
+</Solution>
