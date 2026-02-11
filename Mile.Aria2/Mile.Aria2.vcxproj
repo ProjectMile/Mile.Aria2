@@ -5,8 +5,6 @@
     <RootNamespace>Mile.Aria2</RootNamespace>
     <MileProjectType>ConsoleApplication</MileProjectType>
     <MileProjectManifestFile>Mile.Aria2.manifest</MileProjectManifestFile>
-    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
-    <MileProjectEnableVCLTLSupport>true</MileProjectEnableVCLTLSupport>
     <MileProjectUseProjectProperties>true</MileProjectUseProjectProperties>
     <MileProjectCompanyName>Project Mile</MileProjectCompanyName>
     <MileProjectFileDescription>Mile.Aria2</MileProjectFileDescription>
@@ -16,6 +14,7 @@
     <MileProjectProductName>Mile.Aria2</MileProjectProductName>
     <MileProjectVersion>1.0.$([System.DateTime]::Today.Subtract($([System.DateTime]::Parse('2023-03-31'))).TotalDays).0</MileProjectVersion>
     <MileProjectVersionTag Condition="false">Alpha 1</MileProjectVersionTag>
+    <MileUniCrtDisableRuntimeDebuggingFeature>true</MileUniCrtDisableRuntimeDebuggingFeature>
   </PropertyGroup>
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1827" Project="Mile.Project.Platform.x86.props" />
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1827" Project="Mile.Project.Platform.x64.props" />
@@ -37,6 +36,9 @@
     <None Include="_._" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Mile.Windows.UniCrt">
+      <Version>1.2.410</Version>
+    </PackageReference>
     <PackageReference Include="Mile.Windows.Helpers">
       <Version>1.0.1171</Version>
     </PackageReference>

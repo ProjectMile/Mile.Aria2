@@ -4,8 +4,6 @@
     <ProjectGuid>{E8C0DBBE-0B8F-40B2-BACE-D5E3876A57E1}</ProjectGuid>
     <RootNamespace>Mile.Aria2.Wslay</RootNamespace>
     <MileProjectType>StaticLibrary</MileProjectType>
-    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
-    <MileProjectEnableVCLTLSupport>true</MileProjectEnableVCLTLSupport>
   </PropertyGroup>
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1827" Project="Mile.Project.Platform.x86.props" />
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1827" Project="Mile.Project.Platform.x64.props" />
