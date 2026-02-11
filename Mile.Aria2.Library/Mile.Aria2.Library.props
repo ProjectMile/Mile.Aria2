@@ -11,4 +11,9 @@
       <AdditionalDependencies>$(OutDir)Mile.Aria2.Library.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)Mile.Aria2.Library.vcxproj">
+      <Project>{E51989D4-79D3-4EAC-A7BF-F076996821BB}</Project>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

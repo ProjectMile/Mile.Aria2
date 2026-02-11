@@ -11,4 +11,9 @@
       <AdditionalDependencies>$(OutDir)Mile.Aria2.Wslay.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)Mile.Aria2.Wslay.vcxproj">
+      <Project>{E8C0DBBE-0B8F-40B2-BACE-D5E3876A57E1}</Project>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
