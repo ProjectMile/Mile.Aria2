@@ -1,9 +1,9 @@
 ﻿/*
- * PROJECT:   Mile.Aria2
- * FILE:      Mile.Aria2.cpp
- * PURPOSE:   Implementation for Mile.Aria2
+ * PROJECT:    Mile.Aria2
+ * FILE:       Mile.Aria2.cpp
+ * PURPOSE:    Implementation for Mile.Aria2
  *
- * LICENSE:   The MIT License
+ * LICENSE:    The MIT License
  *
  * MAINTAINER: MouriNaruto (Kenji.Mouri@outlook.com)
  */
