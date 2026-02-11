@@ -2,7 +2,7 @@
 
 Prebuilt binaries for aria2 dependencies
 
-Libraries: zlib/1.3.0 expat/2.5.0 sqlite3/3.43.1 c-ares/1.19.0 libssh2/1.11.0
+Libraries: zlib/1.3.1 expat/2.7.4 sqlite3/3.51.2 c-ares/1.34.6 libssh2/1.11.1_DEV
 
 ## Build
 

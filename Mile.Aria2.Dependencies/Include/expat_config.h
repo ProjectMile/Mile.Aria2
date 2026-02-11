@@ -1,7 +1,7 @@
-/* expat_config.h.cmake.  Based upon generated expat_config.h.in.  */
+﻿/* expat_config.h.cmake.  Based upon generated expat_config.h.in.  */
 
 #ifndef EXPAT_CONFIG_H
-#define EXPAT_CONFIG_H 1
+#  define EXPAT_CONFIG_H 1
 
 /* 1234 = LIL_ENDIAN, 4321 = BIGENDIAN */
 #define BYTEORDER 1234
@@ -26,9 +26,6 @@
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H
-
-/* Define to 1 if you have the `bsd' library (-lbsd). */
-/* #undef HAVE_LIBBSD */
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H
@@ -61,28 +58,30 @@
 /* #undef HAVE_UNISTD_H */
 
 /* Name of package */
-#define PACKAGE "expat"
+#  define PACKAGE "expat"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "expat-bugs@libexpat.org"
+#define PACKAGE_BUGREPORT "https://github.com/libexpat/libexpat/issues"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "expat"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "expat 2.5.0"
+#define PACKAGE_STRING "expat 2.7.4"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "expat"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL ""
+#  define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.5.0"
+#define PACKAGE_VERSION "2.7.4"
 
 /* Define to 1 if you have the ANSI C header files. */
+#  ifndef STDC_HEADERS
 #define STDC_HEADERS
+#  endif
 
 /* whether byteorder is bigendian */
 /* #undef WORDS_BIGENDIAN */
@@ -92,29 +91,29 @@
 /* #undef XML_ATTR_INFO */
 
 /* Define to specify how much context to retain around the current parse
-   point. */
-#define XML_CONTEXT_BYTES 1024
+   point, 0 to disable. */
+#  define XML_CONTEXT_BYTES 1024
 
-#if ! defined(_WIN32)
+#  if ! defined(_WIN32)
 /* Define to include code reading entropy from `/dev/urandom'. */
 /* #undef XML_DEV_URANDOM */
-#endif
+#  endif
 
 /* Define to make parameter entity parsing functionality available. */
 #define XML_DTD
+
+/* Define as 1/0 to enable/disable support for general entities. */
+#  define XML_GE 1
 
 /* Define to make XML Namespaces functionality available. */
 #define XML_NS
 
 /* Define to __FUNCTION__ or "" if `__func__' does not conform to ANSI C. */
-#ifdef _MSC_VER
-#  define __func__ __FUNCTION__
-#endif
+#  ifdef _MSC_VER
+#    define __func__ __FUNCTION__
+#  endif
 
 /* Define to `long' if <sys/types.h> does not define. */
 /* #undef off_t */
-
-/* Define to `unsigned' if <sys/types.h> does not define. */
-/* #undef size_t */
 
 #endif // ndef EXPAT_CONFIG_H

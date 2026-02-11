@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file was generated to inject vcpkg feature selections into the installed copy of
  * sqlite so that consumers need not get the values from pkgconfig or CMake configs.
  *
@@ -17,8 +17,10 @@
 /* #undef SQLITE_ENABLE_MEMSYS5 */
 /* #undef SQLITE_ENABLE_MATH_FUNCTIONS */
 /* #undef SQLITE_ENABLE_UPDATE_DELETE_LIMIT */
+/* #undef SQLITE_ENABLE_DBPAGE_VTAB */
 /* #undef SQLITE_ENABLE_RTREE */
 /* #undef SQLITE_ENABLE_SESSION */
+/* #undef SQLITE_ENABLE_SNAPSHOT */
 /* #undef SQLITE_ENABLE_PREUPDATE_HOOK */
 /* #undef SQLITE_OMIT_LOAD_EXTENSION */
 /* #undef SQLITE_ENABLE_GEOPOLY */
@@ -27,3 +29,5 @@
 /* #undef SQLITE_OS_WINRT */
 #define SQLITE_ENABLE_COLUMN_METADATA 1
 /* #undef SQLITE_OS_UNIX */
+/* #undef SQLITE_ENABLE_DBSTAT_VTAB */
+/* #undef SQLITE_ENABLE_ICU */

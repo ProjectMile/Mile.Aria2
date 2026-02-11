@@ -34,6 +34,7 @@
       <PreprocessorDefinitions>ssize_t=intptr_t;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions>tzname=_tzname;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions>HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CARES_NO_DEPRECATED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
