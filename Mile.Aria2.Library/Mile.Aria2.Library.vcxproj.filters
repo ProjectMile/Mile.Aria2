@@ -43,8 +43,6 @@
     <ClInclude Include="aria2api.h" />
     <ClInclude Include="array_fun.h" />
     <ClInclude Include="asctime_r.h" />
-    <ClInclude Include="AsyncNameResolver.h" />
-    <ClInclude Include="AsyncNameResolverMan.h" />
     <ClInclude Include="AuthConfig.h" />
     <ClInclude Include="AuthConfigFactory.h" />
     <ClInclude Include="AuthResolver.h" />
@@ -538,8 +536,6 @@
     <ClCompile Include="ApiCallbackDownloadEventListener.cc" />
     <ClCompile Include="aria2api.cc" />
     <ClCompile Include="asctime_r.c" />
-    <ClCompile Include="AsyncNameResolver.cc" />
-    <ClCompile Include="AsyncNameResolverMan.cc" />
     <ClCompile Include="AuthConfig.cc" />
     <ClCompile Include="AuthConfigFactory.cc" />
     <ClCompile Include="AutoSaveCommand.cc" />

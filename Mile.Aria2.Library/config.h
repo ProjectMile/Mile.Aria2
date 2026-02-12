@@ -20,7 +20,7 @@
 /* #undef DEFAULT_DISK_CACHE */
 
 /* Define to 1 if asynchronous DNS support is enabled. */
-#define ENABLE_ASYNC_DNS 1
+//#define ENABLE_ASYNC_DNS 1
 
 /* Define to 1 if BitTorrent support is enabled. */
 #define ENABLE_BITTORRENT 1
@@ -57,10 +57,10 @@
 /* #undef HAVE_APPLETLS */
 
 /* Define to 1 if the system has the type `ares_addr_node'. */
-#define HAVE_ARES_ADDR_NODE 1
+//#define HAVE_ARES_ADDR_NODE 1
 
 /* Define to 1 if you have the `ares_set_servers' function. */
-#define HAVE_ARES_SET_SERVERS 1
+//#define HAVE_ARES_SET_SERVERS 1
 
 /* Define to 1 if you have the <argz.h> header file. */
 /* #undef HAVE_ARGZ_H */
@@ -199,7 +199,7 @@
 /* #undef HAVE_LANGINFO_H */
 
 /* Define to 1 if you have libcares. */
-#define HAVE_LIBCARES 1
+//#define HAVE_LIBCARES 1
 
 /* Define to 1 if you have libexpat. */
 #define HAVE_LIBEXPAT 1
