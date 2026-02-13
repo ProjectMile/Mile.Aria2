@@ -11,8 +11,8 @@ MSVC toolchain.
 
 - Inherited all features provided in the official Windows binaries from aria2
   1.37.0.
-- Use [VC-LTL 5.x](https://github.com/Chuyu-Team/VC-LTL5) toolchain to make the
-  binary size smaller.
+- Use [Mile.Windows.UniCrt](https://github.com/ProjectMile/Mile.Windows.UniCrt)
+  toolchain to make the binary size smaller.
 - Adapt to C++ compilers with later than C++14 standards.
 
 ## System Requirements
