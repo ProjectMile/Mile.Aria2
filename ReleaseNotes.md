@@ -1,14 +1,16 @@
 ﻿# Mile.Aria2 Release Notes
 
-**Mile.Aria2 1.0 (1.0.1049.0)**
+**Mile.Aria2 1.0 (1.0.1050.0)**
 
+- Remove asynchronous DNS support because it will introduce some DNS issues when
+  transferring files.
 - Update dependencies from vcpkg
   https://github.com/microsoft/vcpkg/tree/f4155cdf81be1897350f8fab082fdecc0d4469fd.
   - Update zlib to 1.3.1.
   - Update expat to 2.7.4.
   - Update sqlite3 to 3.51.2.
-  - Update c-ares to 1.34.6.
   - Update libssh2 to 1.11.1_DEV.
+- Remove c-ares dependency for Mile.Aria2.Dependencies.
 - Fix some issues in BufferedFile::onClose() function. (Contributed by NIC8146.)
 - Simplify the Mile.Aria2 entry point implementation.
 - Fix the source code file header comment format.
